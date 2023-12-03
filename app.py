@@ -11,25 +11,28 @@ words_analyzed = []
 while True:
     clear_console()
     print(
-        """
-++++Menu++++
+        """++++Menu++++
 1) Enter a words.
 2) Show words with type.
 3) Exit.""")
-    option = int(input("> "))
+    try:
+        option = int(input("> "))
+    except:
+        option = 0
 
     if option == 1:
         clear_console()
         print("Enter a words splited by space:")
-        words = input()
+        words = input().split(" ")
 
         words_analyzed = esgrammar.analyze(words)
 
     if option == 2:
         clear_console()
 
-        for itm in words_analyzed:
+        for i, itm in enumerate(words_analyzed):
             type = ""
+            word = words[i]
 
             if itm["type"] == 1:
                 type = "Aguda"
@@ -40,13 +43,22 @@ while True:
             elif itm["type"] == 4:
                 type = "Sobrésdrujula"
 
+            print(f"""Word: {word}
+Syllables: {itm["syllables"]}
+Tone syllable: {itm["tone_syllable"]}
+Vowels: {itm["vowels"]}
+Consonants: {itm["consonants"]}
+Type: {type}""")
             print("----------------------")
-            print(
-                f"""Palabra: {itm["syllables"]}
-Silaba tonica: {itm["tone_syllable"]}
-Tipo: {type}""")
 
         input()
 
     elif option == 3:
         exit()
+
+    elif option == 4:
+        print(words_analyzed)
+        input()
+
+    else:
+        pass
